@@ -1,8 +1,10 @@
 package me.andreugisbert.dam.comptador
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,24 +23,58 @@ class MainActivity : ComponentActivity() {
     internal lateinit var counterTextView : TextView
     internal var counter = 0
     internal var time = 60
+
+    internal var appStarted = false
+    internal lateinit var countdownTimer : CountDownTimer
+    internal val initialCountDownTimer: Long = 60000
+    internal val intervalCountDownTimer: Long = 1000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_main)
+
+        initCountdown()
 
         tapMeButton = findViewById(R.id.tapMeButton)
         timeTextView = findViewById(R.id.timeTextView)
         counterTextView = findViewById(R.id.couterTextView)
 
         tapMeButton.setOnClickListener{
+            if (!appStarted){
+                startGame()
+            }
             incrementCounter()
-            // TODO -> Iniciar el comptador
         }
-//        timeTextView.text = time.toString()
         timeTextView.text = getString(R.string.timeText, time)
+    }
+
+    private fun startGame() {
+        countdownTimer.start()
+        appStarted = true
+    }
+
+    private fun initCountdown() {
+        countdownTimer = object : CountDownTimer(initialCountDownTimer, intervalCountDownTimer){
+            override fun onTick(millisUntilFinished: Long) {
+                val timeleft = millisUntilFinished / 1000
+                timeTextView.text = timeleft.toString()
+            }
+
+            override fun onFinish() {
+                endGame()
+            }
+        }
     }
     private fun incrementCounter(){
         counter += 1
         counterTextView.text = counter.toString()
     }
+
+    private fun endGame() {
+        Toast.makeText(this,getString(R.string.endGame),Toast.LENGTH_LONG).show()
+//            resetGame()
+    }
 }
 
+    private fun resetGame() {
+        //TODO
+    }
