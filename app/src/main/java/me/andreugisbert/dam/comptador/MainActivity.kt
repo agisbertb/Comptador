@@ -19,7 +19,7 @@ import me.andreugisbert.dam.comptador.ui.theme.ComptadorTheme
 
 class MainActivity : ComponentActivity() {
 
-    private val INITIAL_TIME = 20
+    private val INITIAL_TIME = 60
 
     private val TAG = MainActivity::class.java.simpleName
 
@@ -32,8 +32,8 @@ class MainActivity : ComponentActivity() {
     internal var appStarted = false
     internal lateinit var countdownTimer : CountDownTimer
     //internal val initialCountDownTimer: Long = 60000
-    internal val initialCountDownTimer: Long = time.toLong() *1000
-    internal val intervalCountDownTimer: Long = 1000
+    internal val initialCountDownTimer : Long = time.toLong() *1000
+    internal val intervalCountDownTimer : Long = 1000
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG,"Hola mon! onCreate")
         Log.d(TAG,counter.toString())
@@ -87,6 +87,7 @@ class MainActivity : ComponentActivity() {
         // RESET PUNTUACIÓ A ZERO
         counter = 0
         counterTextView.text = counter.toString()
+
         // REINICIALITZAR EL COMPTADOR
         time = INITIAL_TIME
         timeTextView.text = time.toString()
