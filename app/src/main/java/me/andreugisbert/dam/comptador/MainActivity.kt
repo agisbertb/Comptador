@@ -3,6 +3,7 @@ package me.andreugisbert.dam.comptador
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -48,10 +49,12 @@ class MainActivity : ComponentActivity() {
         timeTextView = findViewById(R.id.timeTextView)
         counterTextView = findViewById(R.id.couterTextView)
 
-        tapMeButton.setOnClickListener{
+        tapMeButton.setOnClickListener{ view ->
             if (!appStarted){
                 startGame()
             }
+            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.bounce)
+            view.startAnimation(bounceAnimation)
             incrementCounter()
         }
         timeTextView.text = getString(R.string.timeText, time)
@@ -74,9 +77,16 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-    private fun incrementCounter(){
-        counter += 1
-        counterTextView.text = counter.toString()
+    private fun incrementCounter() {
+        val blinkAnimation = AnimationUtils.loadAnimation(this, R.anim.blink)
+
+        counterTextView.startAnimation(blinkAnimation)
+
+        counterTextView.postDelayed({
+            counter += 1
+            counterTextView.text = counter.toString()
+            counterTextView.clearAnimation()
+        }, blinkAnimation.duration)
     }
 
     private fun endGame() {
