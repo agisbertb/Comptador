@@ -3,4 +3,7 @@
     <string name="touchme">Tocam</string>
     <string name="timeText">Temps disponible: %1$d</string>
     <string name="endGame">Temps Acabat! Resultat: %1$d</string>
+    <string name="aboutMenu">about</string>
+    <string name="aboutMessage">Creat per Andreu Gisbert Bel. Github: https://github.com/agisbertb</string>
+    <string name="aboutTitle">Comptador %1$s</string>
 </resources>
