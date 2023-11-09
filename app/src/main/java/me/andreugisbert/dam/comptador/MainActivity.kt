@@ -57,7 +57,6 @@ class MainActivity : ComponentActivity() {
         timeTextView = findViewById(R.id.timeTextView)
         counterTextView = findViewById(R.id.couterTextView)
         randomTextTextView = findViewById(R.id.randomTextTextView)
-        showRandomText()
 
         tapMeButton.setOnClickListener{ view ->
             if (!appStarted){
@@ -140,28 +139,22 @@ class MainActivity : ComponentActivity() {
         appStarted = false
     }
     private fun showRandomText() {
-        val textArray = arrayOf("MEL")
-        val randomText = textArray.random()
 
         val screenWidth = resources.displayMetrics.widthPixels
         val screenHeight = resources.displayMetrics.heightPixels
 
         val randomX = (0..screenWidth - randomTextTextView.width).random()
-        val randomY = (0..screenWidth - randomTextTextView.height).random()
+        val randomY = (0..screenHeight - randomTextTextView.height).random()
 
         randomTextTextView.x = randomX.toFloat()
         randomTextTextView.y = randomY.toFloat()
 
-        randomTextTextView.text = randomText
+        randomTextTextView.text = getString(R.string.melText)
         randomTextTextView.visibility = View.VISIBLE
+        randomTextTextView.textSize = resources.getDimension(R.dimen.text_size_large)
 
         Handler().postDelayed({
             randomTextTextView.visibility = View.INVISIBLE
         }, 1000)
     }
-
-
-
-
-
 }

@@ -6,4 +6,5 @@
     <string name="aboutMenu">about</string>
     <string name="aboutMessage">Creat per Andreu Gisbert Bel. Github: https://github.com/agisbertb</string>
     <string name="aboutTitle">Comptador %1$s</string>
+    <string name="melText" style="@style/LargeText"><big>MEL</big></string>
 </resources>
