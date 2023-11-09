@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import me.andreugisbert.dam.comptador.ui.theme.ComptadorTheme
 import android.app.AlertDialog
+import android.os.Handler
+import android.view.View
 
 
 class MainActivity : ComponentActivity() {
@@ -40,6 +42,7 @@ class MainActivity : ComponentActivity() {
     //internal val initialCountDownTimer: Long = 60000
     internal val initialCountDownTimer : Long = time.toLong() *1000
     internal val intervalCountDownTimer : Long = 1000
+    internal lateinit var randomTextTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG,"Hola mon! onCreate")
         Log.d(TAG,counter.toString())
@@ -53,6 +56,8 @@ class MainActivity : ComponentActivity() {
         tapMeButton = findViewById(R.id.tapMeButton)
         timeTextView = findViewById(R.id.timeTextView)
         counterTextView = findViewById(R.id.couterTextView)
+        randomTextTextView = findViewById(R.id.randomTextTextView)
+        showRandomText()
 
         tapMeButton.setOnClickListener{ view ->
             if (!appStarted){
@@ -113,6 +118,7 @@ class MainActivity : ComponentActivity() {
             counter += 1
             counterTextView.text = counter.toString()
             counterTextView.clearAnimation()
+            showRandomText()
         }, blinkAnimation.duration)
     }
 
@@ -133,4 +139,29 @@ class MainActivity : ComponentActivity() {
         // GAME STARTED A FALSE
         appStarted = false
     }
+    private fun showRandomText() {
+        val textArray = arrayOf("MEL")
+        val randomText = textArray.random()
+
+        val screenWidth = resources.displayMetrics.widthPixels
+        val screenHeight = resources.displayMetrics.heightPixels
+
+        val randomX = (0..screenWidth - randomTextTextView.width).random()
+        val randomY = (0..screenWidth - randomTextTextView.height).random()
+
+        randomTextTextView.x = randomX.toFloat()
+        randomTextTextView.y = randomY.toFloat()
+
+        randomTextTextView.text = randomText
+        randomTextTextView.visibility = View.VISIBLE
+
+        Handler().postDelayed({
+            randomTextTextView.visibility = View.INVISIBLE
+        }, 1000)
+    }
+
+
+
+
+
 }
